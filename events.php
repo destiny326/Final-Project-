@@ -18,9 +18,11 @@
     </ul>
   </nav>
   <!-- Event 1 -->
-  
 <figure class= "events">
-    <img src="" alt="">
+    <img src="images/beach party.jpeg" alt="beach party">
+    <figcaption>
+      
+    </figcaption>
 </figure>
 
 
