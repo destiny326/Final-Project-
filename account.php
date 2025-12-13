@@ -92,5 +92,7 @@ $stmt->close();
   </div>
 
   <footer>© 2025 StagePass | <a href="contact.php">Contact Us</a> | Privacy Policy</footer>
+  
+
 </body>
 </html>

@@ -57,5 +57,6 @@ $total = array_sum(array_map(fn($i)=>$i['price'], $cart));
   <?php endif; ?>
 
   <footer>© 2025 StagePass | <a href="contact.php">Contact Us</a> | Privacy Policy</footer>
+  
 </body>
 </html>

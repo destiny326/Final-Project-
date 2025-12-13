@@ -65,7 +65,7 @@ $result = $stmt->get_result();
       </tr>
     <?php endwhile; ?>
   </table>
-
-  <footer>© 2025 StagePass | <a href="contact.php">Contact Us</a> | Privacy Policy</footer>
+<footer>© 2025 StagePass | <a href="contact.php">Contact Us</a> | Privacy Policy</footer>
+ 
 </body>
 </html>

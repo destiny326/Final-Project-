@@ -43,7 +43,10 @@ session_start();
     document.getElementById("reg").addEventListener("click", function() {
       window.location.href = "register.php";
     });
+    
   </script>
+ 
+
 </body>
 
 <footer>© 2025 StagePass | <a href="contact.php">Contact Us</a> | Privacy Policy</footer>
