@@ -7,7 +7,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
-$userId = $_SESSION["user_id"];
+$userId = $_SESSION["id"];
 
 // Handle profile update
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -18,10 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($name) && !empty($email)) {
         if (!empty($user_password)) {
             $hashedPassword = password_hash($user_password, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("UPDATE Users SET name=?, email=?, password=? WHERE id=?");
+            $stmt = $conn->prepare("UPDATE users SET name=?, email=?, password=? WHERE id=?");
             $stmt->bind_param("sssi", $name, $email, $hashedPassword, $userId);
         } else {
-            $stmt = $conn->prepare("UPDATE Users SET name=?, email=? WHERE id=?");
+            $stmt = $conn->prepare("UPDATE users SET name=?, email=? WHERE id=?");
             $stmt->bind_param("ssi", $name, $email, $userId);
         }
         $stmt->execute();
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Fetch current user info
-$stmt = $conn->prepare("SELECT name, email FROM Users WHERE id=?");
+$stmt = $conn->prepare("SELECT name, email FROM users WHERE id=?");
 $stmt->bind_param("i", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
