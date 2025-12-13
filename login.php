@@ -1,4 +1,3 @@
-
 <?php
 // Initialize the session
 session_start();
@@ -35,8 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate credentials
     if (empty($username_err) && empty($password_err)) {
-        // Prepare a select statement - Using 'Users' table (uppercase U)
-        $sql = "SELECT id, username, user_password FROM Users WHERE username = ?";
+
+        // ✔ FIXED: changed Users → users
+        $sql = "SELECT id, username, user_password FROM users WHERE username = ?";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement
@@ -51,8 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (mysqli_stmt_num_rows($stmt) == 1) {
                     // Bind result variables
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
+
                             // Password is correct
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
@@ -61,19 +63,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             // Redirect user
                             header("location: tickets.php");
                             exit;
+
                         } else {
                             $login_err = "Invalid username or password.";
                         }
                     }
+
                 } else {
                     $login_err = "Invalid username or password.";
                 }
+
             } else {
                 $login_err = "Oops! Something went wrong. Please try again later.";
             }
+
             mysqli_stmt_close($stmt);
         }
     }
+
     mysqli_close($link);
 }
 ?>

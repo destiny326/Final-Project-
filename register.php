@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
         $username_err = "Username can only contain letters, numbers, and underscores.";
     } else {
+        // ✔ FIXED: Users → users
         $sql = "SELECT id FROM users WHERE username = ?";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "s", $param_username);
@@ -37,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (!filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL)) {
         $email_err = "Please enter a valid email address.";
     } else {
-        $sql = "SELECT id FROM Users WHERE email = ?";
+        // ✔ FIXED: Users → users
+        $sql = "SELECT id FROM users WHERE email = ?";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "s", $param_email);
             $param_email = trim($_POST["email"]);
@@ -74,7 +76,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insert into database
     if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err)) {
-        $sql = "INSERT INTO Users (username, email, user_password) VALUES (?, ?, ?)";
+
+        // ✔ FIXED: Users → users
+        $sql = "INSERT INTO users (username, email, user_password) VALUES (?, ?, ?)";
+
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_email, $param_password);
             $param_username = $username;
@@ -90,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_close($stmt);
         }
     }
+
     mysqli_close($link);
 }
 ?>
@@ -97,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-      <link rel="stylesheet" href="styles/reg.css">
+    <link rel="stylesheet" href="styles/reg.css">
     <title>Sign Up</title>
 </head>
 <body>
@@ -105,33 +111,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2>Sign Up</h2>
         <p>Please fill this form to create an account.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" name="username" class="<?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo htmlspecialchars($username); ?>">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>
+
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" name="email" class="<?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo htmlspecialchars($email); ?>">
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
             </div>
+
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" name="password" class="<?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo htmlspecialchars($password); ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
+
             <div class="form-group">
                 <label>Confirm Password</label>
                 <input type="password" name="confirm_password" class="<?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo htmlspecialchars($confirm_password); ?>">
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" class="btn" value="Submit">
                 <input type="reset" class="btn" style="background: #6c757d; margin-top: 10px;" value="Reset">
             </div>
+
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
     </div>
-    
 </body>
 </html>

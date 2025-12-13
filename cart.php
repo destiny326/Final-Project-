@@ -23,7 +23,6 @@ $total = array_sum(array_map(fn($i)=>$i['price'], $cart));
       <li><a href="index.php">Home</a></li>
       <li><a href="tickets.php">My tickets</a></li>
       <li><a href="events.php">Events</a></li> 
-      <li><a href="bookings.php">Book Ticket</a></li>
       <li><a href="cart.php">Cart</a></li>
       <li><a href="contact.php">Contact Us</a></li>
       <li><a href="account.php">Account</a></li>
